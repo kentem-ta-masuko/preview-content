@@ -1,5 +1,5 @@
 ﻿{
-  "name": "preview-content",
+  "name": "@kentem-ta-masuko/preview-content",
   "version": "0.0.1",
   "publishConfig": {
     "@kentem-ta-masuko:registry": "https://npm.pkg.github.com"
