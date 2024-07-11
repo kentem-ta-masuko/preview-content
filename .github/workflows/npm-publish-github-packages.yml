@@ -4,8 +4,9 @@
 name: Node.js Package
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -30,6 +31,24 @@ jobs:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
       - run: npm ci
-      - run: npm publish
+      - name: Get previous package.json version
+        id: prev_version
+        run: |
+          git show HEAD^:package.json | jq -r '.version' > prev_version.txt
+      - name: Get current package.json version
+        id: curr_version
+        run: |
+          cat package.json | jq -r '.version' > curr_version.txt
+      - name: Compare version
+        id: version_changed
+        run: |
+          if [ "$(cat prev_version.txt)" != "$(cat curr_version.txt)" ]; then
+            echo "::set-output name=changed::true"
+          else
+            echo "::set-output name=changed::false"
+          fi
+      - name: Publish package
+        if: steps.version_changed.outputs.changed == 'true'
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
