@@ -31,10 +31,18 @@ jobs:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
       - run: npm ci
+      - name: Publish package
+        run: |
+          if npx can-npm-publish --verbose; then
+            echo "CAN_PUBLISH=true" >> $GITHUB_ENV
+          else
+            echo "CAN_PUBLISH=false" >> $GITHUB_ENV
+          fi
+      - name: Publish package
+        if: env.CAN_PUBLISH == 'true'
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - name: Get current package.json version
         run: |
           echo "CURRENT_VERSION=$(jq --raw-output .version package.json)" >> $GITHUB_ENV
-      - name: Publish package
-        run: npx can-npm-publish --verbose && npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
