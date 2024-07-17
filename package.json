@@ -1,9 +1,9 @@
 {
   "name": "@kentem-ta-masuko/preview-content",
   "engines": {
-		"node": ">=16.0.0"
+    "node": ">=16.0.0"
   },
-  "version": "1.0.2",
+  "version": "1.0.3",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
