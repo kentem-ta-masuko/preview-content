@@ -41,6 +41,8 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 最新の変更を取得するためにfetch-depthを0に設定
       - uses: actions/setup-node@v3
         with:
           node-version: 16
