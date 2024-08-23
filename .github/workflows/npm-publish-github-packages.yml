@@ -31,7 +31,7 @@ jobs:
           # 変更をコミットしてプッシュ
           git add package.json package-lock.json
           git commit -m "version auto increment"
-          git push origin main
+          git push origin master
 
   publish-gpr:
     needs: build
