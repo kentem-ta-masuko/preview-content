@@ -56,9 +56,7 @@ jobs:
           git commit -m "version auto increment"
           git push origin master
 
-
       - name: Publish package
-        if: env.CAN_PUBLISH == 'true' || steps.check_publish.outputs.CAN_PUBLISH == 'true'
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
