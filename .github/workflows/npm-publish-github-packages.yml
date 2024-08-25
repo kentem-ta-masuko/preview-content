@@ -53,8 +53,8 @@ jobs:
 
           # 変更をコミットしてプッシュ
           git add package.json package-lock.json
-          git commit -m "version auto increment"
-          git push origin master --force
+          git commit -m "[skip ci]version auto increment"
+          git push origin master
 
       - name: Publish package
         run: npm publish
