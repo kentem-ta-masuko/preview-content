@@ -47,7 +47,8 @@ jobs:
           curl -X PATCH \
             -H "Authorization: token $GITHUB_TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/kentem-ta-masuko/preview-content/rulesets/1495731 -d '{"enforcement": disabled}'
+            https://api.github.com/repos/kentem-ta-masuko/preview-content/rulesets/1495731 \
+            -d '{"enforcement": "disabled"}'
             
       - name: Bump version and commit
         if: env.CAN_PUBLISH == 'false'
