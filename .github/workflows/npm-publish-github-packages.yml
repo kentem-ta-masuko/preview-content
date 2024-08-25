@@ -39,7 +39,16 @@ jobs:
           fi
         env:
           NODE_AUTH_TOKEN: ${{secrets.test}}
-
+      
+      - name: Toggle Ruleset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -X PATCH \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/kentem-ta-masuko/preview-content/rulesets/1495731 -d '{"enabled": false}'
+            
       - name: Bump version and commit
         if: env.CAN_PUBLISH == 'false'
         env:
