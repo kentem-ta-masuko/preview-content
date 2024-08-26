@@ -15,10 +15,7 @@ jobs:
   publish-gpr:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      packages: write
-      metadata: write
-      repository-projects: write
+      write-all
     steps:
       - uses: actions/checkout@v4
         with:
