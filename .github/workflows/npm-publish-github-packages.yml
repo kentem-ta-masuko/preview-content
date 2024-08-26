@@ -41,7 +41,7 @@ jobs:
       
       - name: Toggle Ruleset
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.test }}
         run: |
           curl -X PUT \
             -H "Authorization: token $GITHUB_TOKEN" \
@@ -67,7 +67,7 @@ jobs:
 
       - name: Toggle Ruleset
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.test }}
         run: |
           curl -X PUT \
             -H "Authorization: token $GITHUB_TOKEN" \
