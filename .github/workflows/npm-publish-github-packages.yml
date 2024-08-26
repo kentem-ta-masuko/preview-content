@@ -17,6 +17,7 @@ jobs:
     permissions:
       contents: write
       packages: write
+      metadata: write
       repository-projects: write
     steps:
       - uses: actions/checkout@v4
@@ -45,7 +46,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.test }}
         run: |
-          curl -v -X PUT \
+          curl -X PUT \
             -H "Authorization: token $GITHUB_TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/kentem-ta-masuko/preview-content/rulesets/1495731 \
@@ -64,14 +65,14 @@ jobs:
 
           # 変更をコミットしてプッシュ
           git add package.json package-lock.json
-          git commit -m "[skip ci]version auto increment"
+          git commit -m "version auto increment"
           git push origin master
 
       - name: Toggle Ruleset
         env:
           GITHUB_TOKEN: ${{ secrets.test }}
         run: |
-          curl -v -X PUT \
+          curl -X PUT \
             -H "Authorization: token $GITHUB_TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/kentem-ta-masuko/preview-content/rulesets/1495731 \
