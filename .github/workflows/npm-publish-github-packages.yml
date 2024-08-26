@@ -38,10 +38,17 @@ jobs:
           fi
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Generate Github Apps token
+        id: generate
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secret.APP_ID }}
+          private_key: ${{ secret.PRIVATE_KEY }}
       
       - name: Toggle Ruleset
         env:
-          GITHUB_TOKEN: ${{ secrets.test }}
+          GITHUB_TOKEN: ${{ steps.generate.outputs.token }}
         run: |
           curl -X PUT \
             -H "Authorization: token $GITHUB_TOKEN" \
@@ -52,7 +59,7 @@ jobs:
       - name: Bump version and commit
         if: env.CAN_PUBLISH == 'false'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.generate.outputs.token }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
@@ -67,7 +74,7 @@ jobs:
 
       - name: Toggle Ruleset
         env:
-          GITHUB_TOKEN: ${{ secrets.test }}
+          GITHUB_TOKEN: ${{ steps.generate.outputs.token }}
         run: |
           curl -X PUT \
             -H "Authorization: token $GITHUB_TOKEN" \
