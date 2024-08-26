@@ -24,7 +24,7 @@ jobs:
 
       - run: npm ci
 
-      - name: Publish package
+      - name: Can Publish package
         id: check_publish
         run: |
           if npx can-npm-publish --verbose; then
@@ -43,7 +43,7 @@ jobs:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
       
-      - name: Toggle Ruleset
+      - name: Ruleset Disabled
         if: env.CAN_PUBLISH == 'false'
         env:
           GITHUB_TOKEN: ${{ steps.generate.outputs.token }}
@@ -70,7 +70,7 @@ jobs:
           git commit -m "version auto increment"
           git push origin master
 
-      - name: Toggle Ruleset
+      - name: Ruleset Active
         if: env.CAN_PUBLISH == 'false'
         env:
           GITHUB_TOKEN: ${{ steps.generate.outputs.token }}
